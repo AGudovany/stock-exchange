@@ -3,7 +3,6 @@ import {appFetch} from "./interceptor.ts";
 const baseURL = "http://localhost:8080/api/v1";
 
 export type StockExchange = {
-    [key: string]: any;
     id: number;
     name: string;
     description: string;
@@ -12,7 +11,6 @@ export type StockExchange = {
 };
 
 export type Stock = {
-    [key: string]: any;
     id: number;
     name: string;
     description: string;

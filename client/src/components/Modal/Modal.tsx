@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {getStocks, Stock} from "../../services/apiService.ts";
 
-type Data = Record<string, any>;
+type Data = Record<string, string | number>;
 
 type ModalType = {
     open: boolean,

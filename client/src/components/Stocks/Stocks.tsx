@@ -8,7 +8,7 @@ import {addStockToExchange, createStock, StockExchange} from "../../services/api
 import Modal from "../Modal/Modal.tsx";
 
 function Stocks() {
-    let {exchange} = useParams();
+    const {exchange} = useParams();
     const [query, setQuery] = useState("");
     const [openModal, setOpenModal] = useState<boolean>(false);
     const {stocks, refreshStockData, activeStockExchange} = useStocksData(query, exchange);
