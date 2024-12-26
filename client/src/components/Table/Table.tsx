@@ -21,7 +21,10 @@ const Table = ({columns, rows}: TablePropsType) => {
                 {rows.map((item) => (
                     <tr key={item.id}>
                         {columns.map((column) => {
-                            let fieldValue = item[column.field];
+                            let fieldValue = item[column.field as keyof typeof item];
+                            if (column.type === "date") {
+                                fieldValue = new Date(fieldValue).toLocaleDateString();
+                            }
                             if (column.type === "boolean") {
                                 fieldValue = fieldValue ? "Yes" : "No";
                             }

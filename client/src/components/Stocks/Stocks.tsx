@@ -17,7 +17,7 @@ function Stocks() {
         {title: "Name", field: "name"},
         {title: "Description", field: "description"},
         {title: "Price", field: "currentPrice"},
-        {title: "Last Update", field: "lastUpdate"},
+        {title: "Last Update", field: "lastUpdate", type: "date"},
     ];
 
     const queryHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

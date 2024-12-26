@@ -24,7 +24,7 @@ export const appFetch = async (url: string, options: Options = {}) => {
         // Intercept the response
         if (!response.ok) {
             // Handle errors globally (e.g., redirect to login if 401)
-            if (response.status === 401) {
+            if (response.status === 401 || response.status === 403) {
                 console.error("Unauthorized! Redirecting to login...");
                 window.location.href = '/';
             }

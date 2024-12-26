@@ -6,6 +6,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -23,16 +25,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        boolean isAuthorized = false;
         Cookie[] cookies = request.getCookies();
-        String something = request.getContentType();
-        System.out.println("Content-Type: " + something);
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("auth_token".equals(cookie.getName())) {
                     String token = cookie.getValue();
                     if (token == null || token.isEmpty()) {
-                        filterChain.doFilter(request, response);
-                        return;
+                        if (request.getRequestURI().contains("/api/v1/auth/")) {
+                            filterChain.doFilter(request, response);
+                            return;
+                        } else {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.getWriter().write("Unauthorized");
+                            response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+                            response.setHeader("Access-Control-Allow-Credentials", "true");
+                            return;
+                        }
                     }
                     String username = jwtUtility.extractUsername(token);
                     if (username != null && jwtUtility.isTokenValid(token, username)) {

@@ -39,5 +39,6 @@ You can use API to create more users `POST /api/v1/auth/user` with `{username, p
 * Add more validations to API :
    * check if stock already exists in exchange
    * adding validation about body data and data types to all API
+* Add refresh token api to check if user authenticated every time one open an application and if not return to login page
 * Create a service to handle errors on API and generate a proper response with error
 * Add more test cases
