@@ -1,0 +1,23 @@
+services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - "8080:8080"
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client-app
+    environment:
+      - REACT_APP_API_URL=http://api-server:3000
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
